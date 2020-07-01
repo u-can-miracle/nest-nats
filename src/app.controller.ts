@@ -26,7 +26,7 @@ export class AppController {
   ) {
     console.log('data: ', data);
 
-    await delay(1000 * 15);
+    await delay(1000 * 5);
 
     if (data.reply) {
       await this.natsClient.emit(data.reply, data);
