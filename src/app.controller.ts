@@ -20,23 +20,14 @@ export class AppController {
   ) {}
 
   @MessagePattern('hello')
-  // @EventPattern('hello')
-  async getHello(
-    @Payload() data: any,
-  ) {
+  async getHello(data: string) {
     console.log('data: ', data);
 
-    await delay(1000 * 5);
-
-    // if (data.reply) {
-    //   await this.natsClient.emit(data.reply, data);
-    // }
+    await delay(1000 * 2);
 
     console.log('after delay');
 
-    await this.natsClient.send('hello', 'Hello response');
-
-    return 'Hi!';
+    return 'Hello response';
   }
 
   async onModuleInit() {
