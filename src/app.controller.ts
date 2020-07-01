@@ -28,11 +28,13 @@ export class AppController {
 
     await delay(1000 * 5);
 
-    if (data.reply) {
-      await this.natsClient.emit(data.reply, data);
-    }
+    // if (data.reply) {
+    //   await this.natsClient.emit(data.reply, data);
+    // }
 
     console.log('after delay');
+
+    await this.natsClient.send('hello', 'Hello response');
 
     return 'Hi!';
   }
