@@ -6,6 +6,7 @@ import {
   Ctx,
   NatsContext,
   ClientProxy,
+  Transport,
 } from '@nestjs/microservices';
 
 import { NATS_SERVICE } from './constants';
@@ -19,15 +20,21 @@ export class AppController {
     @Inject(NATS_SERVICE) private natsClient: ClientProxy,
   ) {}
 
-  @MessagePattern('hello')
-  async getHello(data: string) {
+  // @MessagePattern('hello')
+  @EventPattern({ queue: 'work_job', pattern: 'hello' })
+  async getHello(@Payload() data: any) {
     console.log('data: ', data);
 
-    await delay(1000 * 2);
+    await delay(1000 * 3);
 
+    if (data.reply) {
+      await this.natsClient.emit(data.reply, data);
+    }
+
+    await delay(1000 * 1);
     console.log('after delay');
 
-    return 'Hello response';
+    return 'Hi!';
   }
 
   async onModuleInit() {

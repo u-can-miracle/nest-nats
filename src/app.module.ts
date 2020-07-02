@@ -12,7 +12,7 @@ import { NATS_SERVICE } from './constants';
         transport: Transport.NATS,
         options: {
           url: 'nats://localhost:4222',
-          queue: 'cats_queue',
+          // queue: 'work_job',
           // @ts-ignore-next-line
           // verbose: true,
         },
@@ -21,4 +21,5 @@ import { NATS_SERVICE } from './constants';
   ],
   controllers: [AppController],
 })
+
 export class AppModule {}
