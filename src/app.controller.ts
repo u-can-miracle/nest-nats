@@ -31,7 +31,6 @@ export class AppController {
       await this.natsClient.emit(data.reply, data);
     }
 
-    await delay(1000 * 1);
     console.log('after delay');
 
     return 'Hi!';
