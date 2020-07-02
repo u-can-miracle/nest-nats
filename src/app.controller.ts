@@ -23,7 +23,6 @@ export class AppController {
   // @MessagePattern('hello')
   @EventPattern({ queue: 'work_job', pattern: 'hello' })
   async getHello(@Payload() data: any) {
-    console.log('data: ', data);
 
     await delay(1000 * 3);
 
@@ -31,7 +30,7 @@ export class AppController {
       await this.natsClient.emit(data.reply, data);
     }
 
-    console.log('after delay');
+    console.log('after delay', data);
 
     return 'Hi!';
   }
